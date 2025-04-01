@@ -7,6 +7,7 @@ import Hero from './components/Hero';
 import Auth from './pages/Auth';
 import BookingPage from './pages/BookingPage';
 import MyBookings from './pages/MyBookings';
+import Dashboard from './pages/Dashboard';
 import { Bus, MapPin, Clock, CreditCard } from 'lucide-react';
 
 function App() {
@@ -80,7 +81,7 @@ function App() {
                           to: 'Kisumu',
                           price: 1500,
                           time: '6 hours',
-                          image: 'https://images.unsplash.com/photo-1594750852563-5ed8a0af8c9f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+                          image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
                         },
                         {
                           from: 'Mombasa',
@@ -112,6 +113,7 @@ function App() {
             <Route path="/auth" element={<Auth />} />
             <Route path="/booking" element={<BookingPage />} />
             <Route path="/bookings" element={<MyBookings />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
           
           {/* Footer */}

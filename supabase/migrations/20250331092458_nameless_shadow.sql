@@ -1,30 +1,50 @@
 /*
-  # Initial Schema Setup for Mark.Suma Trans-Kenya
+  -- # Initial Schema Setup for Mark.Suma Trans-Kenya
 
-  1. New Tables
-    - `routes`
-      - `id` (uuid, primary key)
-      - `from` (text)
-      - `to` (text)
-      - `price` (integer)
-      - `departure_time` (time)
-      - `arrival_time` (time)
-      - `available_seats` (integer)
-      - `created_at` (timestamp)
+  -- 1. New Tables
+  --   - `users`
+  --     - `id` (uuid, primary key, references auth.users)
+  --     - `name` (text)
+  --     - `age` (integer)
+  --     - `gender` (text)
+  --     - `phone` (text, unique)
+  --     - `email` (text, unique)
+  --     - `national_id` (text, unique)
 
-    - `bookings`
-      - `id` (uuid, primary key)
-      - `user_id` (uuid, references auth.users)
-      - `route_id` (uuid, references routes)
-      - `seat_number` (integer)
-      - `booking_date` (date)
-      - `status` (text)
-      - `created_at` (timestamp)
+  --   - `routes`
+  --     - `id` (uuid, primary key)
+  --     - `from` (text)
+  --     - `to` (text)
+  --     - `price` (integer)
+  --     - `departure_time` (time)
+  --     - `arrival_time` (time)
+  --     - `available_seats` (integer)
+  --     - `created_at` (timestamp)
 
-  2. Security
-    - Enable RLS on all tables
-    - Add policies for authenticated users
+  --   - `bookings`
+  --     - `id` (uuid, primary key)
+  --     - `user_id` (uuid, references auth.users)
+  --     - `route_id` (uuid, references routes)
+  --     - `seat_number` (integer)
+  --     - `booking_date` (date)
+  --     - `status` (text)
+  --     - `created_at` (timestamp)
+
+  -- 2. Security
+  --   - Enable RLS on all tables
+  --   - Add policies for authenticated users
 */
+
+-- Create users table
+CREATE TABLE IF NOT EXISTS users (
+  id uuid PRIMARY KEY REFERENCES auth.users(id),
+  name text NOT NULL,
+  age integer NOT NULL,
+  gender text NOT NULL,
+  phone text NOT NULL UNIQUE,
+  email text NOT NULL UNIQUE,
+  national_id text NOT NULL UNIQUE
+);
 
 -- Create routes table
 CREATE TABLE IF NOT EXISTS routes (
@@ -54,8 +74,16 @@ CREATE TABLE IF NOT EXISTS bookings (
 );
 
 -- Enable Row Level Security
+ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE routes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
+
+-- Policies for users
+CREATE POLICY "Users can manage their own profiles"
+  ON users FOR ALL
+  TO authenticated
+  USING (auth.uid() = id)
+  WITH CHECK (auth.uid() = id);
 
 -- Policies for routes
 CREATE POLICY "Routes are viewable by everyone"
