@@ -4,6 +4,14 @@ import { Phone } from 'lucide-react';
 interface MpesaPaymentProps {
   amount: number;
   onPaymentComplete: () => void;
+  bookingDetails?: {
+    routeFrom: string;
+    routeTo: string;
+    seatNumber: number;
+    date: string;
+    departureTime: string;
+    arrivalTime: string;
+  };
 }
 
 export default function MpesaPayment({ amount, onPaymentComplete }: MpesaPaymentProps) {

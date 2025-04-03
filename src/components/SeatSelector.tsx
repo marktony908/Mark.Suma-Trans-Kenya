@@ -1,4 +1,3 @@
-
 interface SeatSelectorProps {
   totalSeats: number;
   selectedSeat: number | null;
