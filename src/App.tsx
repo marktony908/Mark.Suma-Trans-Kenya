@@ -122,8 +122,8 @@ function App() {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
                   <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-                  <p>Phone: +254 700 000 000</p>
-                  <p>Email: info@marksumatrans.co.ke</p>
+                  <p>Phone: +254 745694981</p>
+                  <p>Email: kipkoechtony510@gmail.com</p>
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
