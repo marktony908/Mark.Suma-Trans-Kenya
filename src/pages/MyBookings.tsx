@@ -15,6 +15,7 @@ interface Booking {
   date: string;
   price: number;
   status: 'confirmed' | 'pending' | 'completed';
+  user_id?: string;
 }
 
 export default function MyBookings() {
@@ -30,6 +31,7 @@ export default function MyBookings() {
     }
 
     const fetchBookings = async () => {
+      setLoading(true);
       try {
         const { data, error } = await supabase
           .from('bookings')
@@ -39,6 +41,7 @@ export default function MyBookings() {
 
         if (error) throw error;
         setBookings(data || []);
+        console.log('Fetched bookings:', data); // ✅ Debug line
       } catch (error) {
         console.error('Error fetching bookings:', error);
       } finally {
